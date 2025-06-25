@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -9,7 +11,7 @@ export default function Temps(props) {
       selected: true,
     },
     {
-      name: "custodial",
+      name: "custodiol",
       selected: false,
     },
     {

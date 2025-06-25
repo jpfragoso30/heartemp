@@ -1,3 +1,5 @@
+/** @format */
+
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FontAwesomeIcon from "@expo/vector-icons/FontAwesome";
 import FontAwesome6Icon from "@expo/vector-icons/FontAwesome6";
@@ -14,7 +16,7 @@ export default function Home() {
       <Image style={styles.image} source={require("../assets/lonchera.png")} />
       <View>
         <Text style={styles.tempText}>Temperatura</Text>
-        <Temps general="3.4" custodial="10.1" envase="13.0" />
+        <Temps general="3.4" custodiol="10.1" envase="13.0" />
       </View>
       <View style={styles.divider} />
       <Row
