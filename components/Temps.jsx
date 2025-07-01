@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 

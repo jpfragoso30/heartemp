@@ -1,3 +1,5 @@
+/** @format */
+
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FontAwesomeIcon from "@expo/vector-icons/FontAwesome";
 import FontAwesome6Icon from "@expo/vector-icons/FontAwesome6";
