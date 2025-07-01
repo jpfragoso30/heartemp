@@ -9,10 +9,6 @@ export default function Temps(props) {
       selected: true,
     },
     {
-      name: "custodial",
-      selected: false,
-    },
-    {
       name: "envase",
       selected: false,
     },
@@ -69,6 +65,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "90%",
+    gap: 8,
   },
   tempSwapBtn: (selected) => ({
     borderRadius: 8,
@@ -77,8 +74,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingVertical: 6,
     paddingHorizontal: 18,
+    width: "50%",
   }),
   tempBtnText: (selected) => ({
     color: selected ? "white" : "#D1456C",
+    alignSelf: "center",
   }),
 });
