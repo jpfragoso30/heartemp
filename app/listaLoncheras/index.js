@@ -1,19 +1,13 @@
-import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Loncherow from "../../components/Loncherow";
 
-export default function Historial() {
-  const router = useRouter();
-
+export default function ListaLoncheras() {
   return (
     <View style={styles.container}>
-      <Text>Historial XD</Text>
-
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => router.navigate("/lonchera")}
-      >
-        <Text style={styles.btnText}>VER MONITOR</Text>
-      </TouchableOpacity>
+      <Loncherow title="xd" />
+      <Loncherow title="tumama" />
+      <Loncherow title="marcu" />
+      <Loncherow title="selacome" />
     </View>
   );
 }

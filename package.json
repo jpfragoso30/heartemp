@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
-    "ios": "expo start --ios"
+    "start": "expo start"
   },
   "dependencies": {
     "expo": "~53.0.12",

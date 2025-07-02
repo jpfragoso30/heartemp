@@ -1,39 +1,47 @@
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function Historial() {
+export default function Loncherow({ title, id }) {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <Text>Historial XD</Text>
-
+    <View style={styles.row}>
+      <Text style={styles.title}>{title}</Text>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => router.navigate("/lonchera")}
       >
-        <Text style={styles.btnText}>VER MONITOR</Text>
+        <Text style={styles.btnText}>VER</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  row: {
+    borderColor: "black",
+    borderWidth: 1,
+    flexDirection: "row",
     alignItems: "center",
-    paddingTop: 24,
-    gap: 16,
+    justifyContent: "space-between",
+    width: "90%",
+    borderRadius: 8,
+    height: 60,
+    paddingHorizontal: 8,
+  },
+  title: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    fontSize: 24,
   },
   btn: {
-    marginTop: 12,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
-    width: "90%",
-    height: 60,
+    width: 80,
+    height: 40,
     backgroundColor: "#D1456C",
   },
   btnText: {

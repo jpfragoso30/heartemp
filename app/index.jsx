@@ -1,85 +1,101 @@
-/** @format */
-
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import FontAwesomeIcon from "@expo/vector-icons/FontAwesome";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import useLogin from "../hooks/useLogin";
 import FontAwesome6Icon from "@expo/vector-icons/FontAwesome6";
-import Row from "../components/Row";
-import { useRouter } from "expo-router";
-import Temps from "../components/Temps";
 
-export default function Home() {
-  const router = useRouter();
+export default function Inicio() {
+  const {
+    usuario,
+    handleUsuarioChange,
+    handleAcceder,
+    isPwdVisible,
+    togglePwdVisibility,
+  } = useLogin();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MONITOR DE CORAZÓN</Text>
-      <Image style={styles.image} source={require("../assets/lonchera.png")} />
-      <View>
-        <Text style={styles.tempText}>Temperatura</Text>
-        <Temps general="3.4" envase="13.0" />
+      <Image style={styles.image} source={require("../assets/logo.png")} />
+      <Text style={styles.label}>Usuario</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={handleUsuarioChange("nombre")}
+        value={usuario.nombre}
+      />
+      <Text style={styles.label}>Contraseña</Text>
+      <View style={styles.pwdContainer}>
+        <TextInput
+          style={styles.pwdInput}
+          onChangeText={handleUsuarioChange("pwd")}
+          value={usuario.pwd}
+          secureTextEntry={!isPwdVisible}
+        />
+        <TouchableOpacity onPress={togglePwdVisibility}>
+          {isPwdVisible ? (
+            <FontAwesome6Icon name="eye-slash" style={styles.eyeIcon} />
+          ) : (
+            <FontAwesome6Icon name="eye" style={styles.eyeIcon} />
+          )}
+        </TouchableOpacity>
       </View>
-      <View style={styles.divider} />
-      <Row
-        Icon={(props) => <FontAwesome6Icon name="location-dot" {...props} />}
-        title="Ubicación"
-        status="En tránsito"
-      />
-      <View style={styles.divider} />
-      <Row
-        Icon={(props) => <FontAwesome6Icon name="clock" {...props} />}
-        title="Duración"
-        status="2 h 15 min"
-      />
-      <View style={styles.divider} />
-      <Row
-        Icon={(props) => <FontAwesomeIcon name="battery" {...props} />}
-        title="Batería"
-        status="75 %"
-      />
-      <View style={styles.divider} />
-      <Row
-        Icon={(props) => <FontAwesomeIcon name="bell" {...props} />}
-        title="Alertas"
-        status="Ninguna"
-      />
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => router.navigate("/historial")}
-      >
-        <Text style={styles.btnText}>VER HISTORIAL</Text>
+
+      <TouchableOpacity style={styles.btn} onPress={handleAcceder}>
+        <Text style={styles.btnText}>ACCEDER</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  eyeIcon: {
+    fontSize: 24,
+  },
+  image: {
+    width: "90%",
+    height: 150,
+    resizeMode: "stretch",
+    marginBottom: 24,
+  },
+  label: {
+    fontSize: 28,
+  },
+  pwdInput: {
+    width: "90%",
+    height: 60,
+    fontSize: 28,
+  },
+  pwdContainer: {
+    borderColor: "black",
+    borderWidth: 1,
+    width: "90%",
+    height: 60,
+    paddingHorizontal: 8,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 8,
+  },
+  input: {
+    borderColor: "black",
+    borderWidth: 1,
+    width: "90%",
+    height: 60,
+    fontSize: 28,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "start",
     paddingTop: 24,
+    paddingLeft: "10%",
     gap: 16,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "600",
-  },
-  image: {
-    width: 210,
-    height: 180,
-  },
-  tempContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  tempText: {
-    fontSize: 33,
-    alignSelf: "center",
-  },
-  divider: {
-    borderBottomColor: "#ddd",
-    borderBottomWidth: 2,
-    width: "90%",
   },
   btn: {
     marginTop: 12,
