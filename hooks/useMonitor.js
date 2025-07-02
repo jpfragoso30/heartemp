@@ -19,7 +19,7 @@ export const useMonitor = () => {
     try {
       setIsRefreshing(true);
       const { data } = await axios.get(
-        "http://127.0.0.1:4000/api/heart/measures/last-one"
+        `http://${process.env.EXPO_PUBLIC_API_PATH}/api/heart/measures/last-one`
       );
 
       setLatestData((prev) => ({

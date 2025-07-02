@@ -28,7 +28,7 @@ export default useLogin = () => {
     if (disableAcceder) return;
     try {
       const { data } = await axios.post(
-        "http://127.0.0.1:4000/api/auth/login",
+        `http://${process.env.EXPO_PUBLIC_API_PATH}/api/auth/login`,
         usuario
       );
 
@@ -36,9 +36,8 @@ export default useLogin = () => {
       router.navigate("/listaLoncheras");
     } catch (e) {
       console.error("LOGIN API", e);
-      console.error(e.response.data.errors);
-      console.error(error.message);
-      console.error(error.response.message);
+      if (!e?.response)
+        setFormErrors("No se encontró el correo o la contraseña es incorrecta");
       setFormErrors(e.response.data.errors[0].msg);
     }
   };
