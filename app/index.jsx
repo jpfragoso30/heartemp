@@ -11,55 +11,69 @@ import FontAwesome6Icon from "@expo/vector-icons/FontAwesome6";
 
 export default function Inicio() {
   const {
+    formErrors,
     usuario,
     handleUsuarioChange,
     handleAcceder,
     isPwdVisible,
     togglePwdVisibility,
+    disableAcceder,
   } = useLogin();
+
+  const errors = formErrors?.length;
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/logo.png")} />
-      <Text style={styles.label}>Usuario</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={handleUsuarioChange("nombre")}
-        value={usuario.nombre}
-      />
-      <Text style={styles.label}>Contraseña</Text>
-      <View style={styles.pwdContainer}>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Email</Text>
         <TextInput
-          style={styles.pwdInput}
-          onChangeText={handleUsuarioChange("pwd")}
-          value={usuario.pwd}
-          secureTextEntry={!isPwdVisible}
+          style={styles.input(errors)}
+          onChangeText={handleUsuarioChange("email")}
+          value={usuario.email}
+          autoCapitalize="none"
         />
-        <TouchableOpacity onPress={togglePwdVisibility}>
-          {isPwdVisible ? (
-            <FontAwesome6Icon name="eye-slash" style={styles.eyeIcon} />
-          ) : (
-            <FontAwesome6Icon name="eye" style={styles.eyeIcon} />
-          )}
+        <Text style={styles.label}>Contraseña</Text>
+        <View style={styles.pwdContainer(errors)}>
+          <TextInput
+            style={styles.pwdInput}
+            onChangeText={handleUsuarioChange("password")}
+            value={usuario.password}
+            secureTextEntry={!isPwdVisible}
+          />
+          <TouchableOpacity onPress={togglePwdVisibility}>
+            {isPwdVisible ? (
+              <FontAwesome6Icon name="eye-slash" style={styles.eyeIcon} />
+            ) : (
+              <FontAwesome6Icon name="eye" style={styles.eyeIcon} />
+            )}
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.errorText}>{formErrors}</Text>
+        <TouchableOpacity
+          style={styles.btn(disableAcceder)}
+          onPress={handleAcceder}
+          disabled={disableAcceder}
+        >
+          <Text style={styles.btnText}>ACCEDER</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.btn} onPress={handleAcceder}>
-        <Text style={styles.btnText}>ACCEDER</Text>
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: "#D1456C",
+  },
   eyeIcon: {
     fontSize: 24,
   },
   image: {
-    width: "90%",
-    height: 150,
+    width: "40%",
+    height: 200,
     resizeMode: "stretch",
-    marginBottom: 24,
+    alignSelf: "center",
   },
   label: {
     fontSize: 28,
@@ -69,44 +83,48 @@ const styles = StyleSheet.create({
     height: 60,
     fontSize: 28,
   },
-  pwdContainer: {
-    borderColor: "black",
+  pwdContainer: (errors) => ({
+    borderColor: errors ? "#D1456C" : "black",
     borderWidth: 1,
-    width: "90%",
+    width: "100%",
     height: 60,
     paddingHorizontal: 8,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 8,
-  },
-  input: {
-    borderColor: "black",
+  }),
+  input: (errors) => ({
+    borderColor: errors ? "#D1456C" : "black",
     borderWidth: 1,
-    width: "90%",
+    width: "100%",
     height: 60,
     fontSize: 28,
     paddingHorizontal: 8,
     borderRadius: 8,
+    marginBottom: 16,
+  }),
+  formContainer: {
+    width: "90%",
+    alignSelf: "center",
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "start",
     paddingTop: 24,
-    paddingLeft: "10%",
     gap: 16,
   },
-  btn: {
+  btn: (disableAcceder) => ({
     marginTop: 12,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
-    width: "90%",
+    width: "100%",
     height: 60,
-    backgroundColor: "#D1456C",
-  },
+    backgroundColor: disableAcceder ? "#DDD" : "#D1456C",
+  }),
   btnText: {
     color: "white",
     fontSize: 28,

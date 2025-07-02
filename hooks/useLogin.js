@@ -1,36 +1,46 @@
+import axios from "axios";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../app/_layout";
 
 export default useLogin = () => {
+  const { updateStore } = useContext(Context);
   const router = useRouter();
   const [usuario, setUsuario] = useState({
-    nombre: "",
-    pwd: "",
+    email: "",
+    password: "",
   });
   const [isPwdVisible, setIsPwdVisible] = useState(false);
+  const [formErrors, setFormErrors] = useState("");
+  const disableAcceder =
+    usuario.email.length === 0 ||
+    usuario.password.length < 8 ||
+    !/^\S+@\S+\.\S+$/.test(usuario.email);
 
   const handleUsuarioChange = (field) => (value) => {
-    if (field === "pwd" && value.length > 8) return;
+    setFormErrors("");
+    if (field === "password" && value.length > 8) return;
+    if (field === "email" && value.length > 18) return;
     setUsuario((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleAcceder = () => {
-    fetch("https://127.0.0.1:4000/api/auth", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(usuario),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        router.navigate("/listaLoncheras");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  const handleAcceder = async () => {
+    if (disableAcceder) return;
+    try {
+      const { data } = await axios.post(
+        "http://127.0.0.1:4000/api/auth/login",
+        usuario
+      );
+
+      updateStore(data);
+      router.navigate("/listaLoncheras");
+    } catch (e) {
+      console.error("LOGIN API", e);
+      console.error(e.response.data.errors);
+      console.error(error.message);
+      console.error(error.response.message);
+      setFormErrors(e.response.data.errors[0].msg);
+    }
   };
 
   const togglePwdVisibility = () => setIsPwdVisible((prev) => !prev);
@@ -41,5 +51,7 @@ export default useLogin = () => {
     handleAcceder,
     isPwdVisible,
     togglePwdVisibility,
+    disableAcceder,
+    formErrors,
   };
 };
