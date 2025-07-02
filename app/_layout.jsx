@@ -34,7 +34,7 @@ export default function Layout() {
       </View>
       <Slot />
 
-      {pathname !== "/" && (
+      {pathname === "/lonchera" && (
         <View style={styles.botContainer}>
           <TouchableOpacity style={styles.btn} onPress={() => router.back()}>
             <FontAwesome5Icon name="arrow-left" style={styles.altBtnIcon} />

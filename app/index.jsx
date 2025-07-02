@@ -65,6 +65,8 @@ export default function Inicio() {
 const styles = StyleSheet.create({
   errorText: {
     color: "#D1456C",
+    marginTop: 8,
+    fontWeight: 600,
   },
   eyeIcon: {
     fontSize: 24,

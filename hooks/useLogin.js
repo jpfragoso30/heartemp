@@ -36,9 +36,10 @@ export default useLogin = () => {
       router.navigate("/listaLoncheras");
     } catch (e) {
       console.error("LOGIN API", e);
-      if (!e?.response)
+      console.error("LOGIN API", e.status);
+      if (e.status === 400) setFormErrors(e.response.data.errors[0].msg);
+      else
         setFormErrors("No se encontró el correo o la contraseña es incorrecta");
-      setFormErrors(e.response.data.errors[0].msg);
     }
   };
 
